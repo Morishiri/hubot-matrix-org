@@ -1,5 +1,5 @@
 {
-  "name": "hubot-matrix",
+  "name": "hubot-matrix-org-custom",
   "version": "0.0.1",
   "description": "A hubot adapter for matrix",
   "main": "index.coffee",
