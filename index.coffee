@@ -19,6 +19,13 @@ class Matrix extends Adapter
     self = @
     @robot.logger.info "Running"
 
+    homeserver_address = process.env.matrixHomeserverAddress
+    if !homeserver_address
+      if config.has('homeserver_address')
+        homeserver_address = config.get('homeserver_address')
+      else
+        homeserver_address = "https://matrix.org"
+    
     access_token = process.env.matrixAccessToken
     if !access_token and config.has('access_token')
       access_token = config.get('access_token')
@@ -27,7 +34,7 @@ class Matrix extends Adapter
     if !botName and config.has('bot_name')
       botName = config.get('bot_name')
 
-    @client = new MatrixClient("https://matrix.org", access_token);
+    @client = new MatrixClient(homeserver_address, access_token);
     AutojoinRoomsMixin.setupOnClient(@client)
     @client.start().then(() => @emit('connected'))
 
